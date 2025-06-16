@@ -1,0 +1,73 @@
+version: "3.8"
+
+services:
+  redis-streams:
+    image: redis:7.2
+    container_name: redis-streams
+    ports:
+      - "6379:6379"
+    networks:
+      - insurance-net
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+  fraud-api-mock-backend:
+    build:
+      context: ./fraud-api-mock
+    container_name: fraud-api-mock
+    ports:
+      - "3010:3010"
+    networks:
+      - insurance-net
+
+  insurance-policy-mysql:
+    image: mysql:8.0
+    container_name: insurance-policy-database
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3307:3306"
+    networks:
+      - insurance-net
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  insurance-policy-service:
+    build:
+      context: ./insurance-policy-service
+      dockerfile: Dockerfile
+    container_name: insurance-policy-service
+    depends_on:
+      - insurance-policy-mysql
+      - redis-streams
+      - fraud-api-mock-backend
+    ports:
+      - "8085:8080"
+    environment:
+      - DB_URL=${DB_URL}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - FRAUD_API_HOST=${FRAUD_API_HOST}
+      - FRAUD_API_PORT=${FRAUD_API_PORT}
+      - DB_HOST=insurance-policy-mysql
+    networks:
+      - insurance-net
+
+volumes:
+  mysql-data:
+
+networks:
+  insurance-net:
+    driver: bridge
+

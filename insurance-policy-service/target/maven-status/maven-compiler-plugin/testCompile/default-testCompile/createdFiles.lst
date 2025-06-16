@@ -1,0 +1,7 @@
+com/challenge/core/policy/PolicyServiceTest.class
+com/challenge/core/policy/PolicyDAOTest.class
+com/challenge/core/policy/PolicyStatusClassifierServiceTest.class
+com/challenge/TestDatabaseExtension.class
+com/challenge/TestDatabaseExtension$DatabaseContext.class
+com/challenge/core/policy/PolicyResourceTest.class
+com/challenge/core/policy/PolicyStatusValidatorTest.class

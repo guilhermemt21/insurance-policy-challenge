@@ -1,0 +1,16 @@
+logging:
+  level: INFO
+  loggers:
+    com.challenge: DEBUG
+insurancePolicyDatabase:
+  driverClass: com.mysql.cj.jdbc.Driver
+  user: ${DB_USER:-root}
+  password: ${DB_PASSWORD:-root}
+  url: ${DB_URL:-jdbc:mysql://localhost:3306/insurance_policy}
+redis:
+  host: ${REDIS_HOST:-localhost}
+  port: ${REDIS_PORT:-6379}
+  password: ${REDIS_PASSWORD:-root}
+fraudApi:
+  host: ${FRAUD_API_HOST:-localhost}
+  port: ${FRAUD_API_PORT:-3010}

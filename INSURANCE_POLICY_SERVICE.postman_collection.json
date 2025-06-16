@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "9b08d3d4-ebd1-48ba-915c-98026ca462ee",
+		"name": "INSURANCE_POLICY_SERVICE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17942776"
+	},
+	"item": [
+		{
+			"name": "getPolicyRequestById",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer valid-token-1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8085/policy_requests/658f372a-f180-46d4-bdf0-c3289847698c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"policy_requests",
+						"658f372a-f180-46d4-bdf0-c3289847698c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createPolicyRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer valid-token-1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"productId\": \"1b2da7cc-b367-4196-8a78-9cfeec21f587\",\n  \"category\": \"AUTO\",\n  \"salesChannel\": \"MOBILE\",\n  \"paymentMethod\": \"CREDIT_CARD\",\n  \"totalMonthlyPremiumAmount\": 75.25,\n  \"insuredAmount\": 275000.50,\n  \"coverages\": {\n    \"Roubo\": 100000.25,\n    \"Perda Total\": 100000.25,\n    \"Colisão com Terceiros\": 75000.00\n  },\n  \"assistances\": [\n    \"Guincho até 250km\",\n    \"Troca de Óleo\",\n    \"Chaveiro 24h\"\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/policy_requests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"policy_requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPolicyRequestsByCustomerId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/policy_requests/customer/8f14e45f-ea6b-4d2b-9408-c1a0462e1d1d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"policy_requests",
+						"customer",
+						"8f14e45f-ea6b-4d2b-9408-c1a0462e1d1d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancelPolicyRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer valid-token-1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8085/policy_requests/6a3d6562-f3e4-4d10-809e-e50fe1ca621c/cancel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"policy_requests",
+						"6a3d6562-f3e4-4d10-809e-e50fe1ca621c",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "receivePaymentEvent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/policy_requests/8f14e45f-ea6b-4d2b-9408-c1a0462e1d1d/events/payment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"policy_requests",
+						"8f14e45f-ea6b-4d2b-9408-c1a0462e1d1d",
+						"events",
+						"payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "receiveAuthorizationEvent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/policy_requests/8f14e45f-ea6b-4d2b-9408-c1a0462e1d1d/events/authorization",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"policy_requests",
+						"8f14e45f-ea6b-4d2b-9408-c1a0462e1d1d",
+						"events",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

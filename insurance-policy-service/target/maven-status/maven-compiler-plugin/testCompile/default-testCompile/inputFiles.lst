@@ -1,0 +1,6 @@
+/home/guilhermecampos/Desktop/itau/insurance-policy-service/src/test/java/com/challenge/TestDatabaseExtension.java
+/home/guilhermecampos/Desktop/itau/insurance-policy-service/src/test/java/com/challenge/core/policy/PolicyDAOTest.java
+/home/guilhermecampos/Desktop/itau/insurance-policy-service/src/test/java/com/challenge/core/policy/PolicyResourceTest.java
+/home/guilhermecampos/Desktop/itau/insurance-policy-service/src/test/java/com/challenge/core/policy/PolicyServiceTest.java
+/home/guilhermecampos/Desktop/itau/insurance-policy-service/src/test/java/com/challenge/core/policy/PolicyStatusClassifierServiceTest.java
+/home/guilhermecampos/Desktop/itau/insurance-policy-service/src/test/java/com/challenge/core/policy/PolicyStatusValidatorTest.java
