@@ -14,3 +14,10 @@ redis:
 fraudApi:
   host: ${FRAUD_API_HOST:-localhost}
   port: ${FRAUD_API_PORT:-3010}
+server:
+  applicationConnectors:
+    - type: http
+      port: 8085
+  adminConnectors:
+    - type: http
+      port: 8095

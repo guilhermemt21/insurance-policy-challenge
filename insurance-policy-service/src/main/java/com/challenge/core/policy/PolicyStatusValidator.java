@@ -24,7 +24,7 @@ public class PolicyStatusValidator {
                 }
             }
             case VALIDATED -> {
-                if (desiredStatus != PolicyStatus.PENDING) {
+                if (desiredStatus != PolicyStatus.PENDING && desiredStatus != PolicyStatus.CANCELLED) {
                     throw new IllegalStateException("Invalid transition from VALIDATED to " + desiredStatus);
                 }
             }

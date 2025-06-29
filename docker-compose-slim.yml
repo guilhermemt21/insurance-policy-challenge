@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  redis-streams:
+    image: redis:7.2
+    container_name: redis-streams
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+  fraud-api-mock-backend:
+    build:
+      context: ./fraud-api-mock
+    container_name: fraud-api-mock
+    ports:
+      - "3010:3010"

@@ -38,6 +38,13 @@ public class PolicyStatusValidatorTest {
     }
 
     @Test
+    void shouldAllowTransitionToCanceledWhenStatusIsValidated() {
+        assertDoesNotThrow(() ->
+                validator.validateStatusTransition(PolicyDTO.builder().status(VALIDATED).build(), CANCELLED)
+        );
+    }
+
+    @Test
     void shouldThrowExceptionWhenTransitionFromValidatedToApproved() {
         assertThrows(IllegalStateException.class, () ->
                 validator.validateStatusTransition(PolicyDTO.builder().status(VALIDATED).build(), APPROVED)

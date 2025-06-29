@@ -64,3 +64,7 @@ CREATE TABLE policy_history (
     FOREIGN KEY (policy_id) REFERENCES policy_requests(id) ON DELETE CASCADE
 );
 
+
+ALTER TABLE policy_requests ADD COLUMN received_authorization_event BOOLEAN DEFAULT FALSE;
+ALTER TABLE policy_requests ADD COLUMN received_approved_payment_event BOOLEAN DEFAULT FALSE;
+

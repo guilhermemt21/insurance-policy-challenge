@@ -105,4 +105,15 @@ public interface PolicyDAO {
 
     @SqlUpdate("UPDATE policy_requests SET status = :policyStatus WHERE id = :policyId")
     void update(@Bind("policyId") String policyId, @Bind("policyStatus") String policyStatus);
+
+
+
+    @SqlUpdate("UPDATE policy_requests SET received_authorization_event = TRUE WHERE id = :policyId")
+    void markAuthorizationReceived(@Bind("policyId") String policyId);
+
+    @SqlUpdate("UPDATE policy_requests SET received_approved_payment_event = TRUE WHERE id = :policyId")
+    void markApprovedPaymentReceived(@Bind("policyId") String policyId);
+
+    @SqlQuery("SELECT received_authorization_event FROM policy_requests WHERE id = :policyId")
+    boolean hasReceivedAuthorization(@Bind("policyId") String policyId);
 }

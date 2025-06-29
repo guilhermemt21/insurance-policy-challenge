@@ -1,6 +1,7 @@
 package com.challenge.core.policy;
 
 import com.challenge.core.policy.model.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -27,6 +28,9 @@ public class PolicyDTO {
     private Map<String, BigDecimal> coverages;
     private List<String> assistances;
     private List<PolicyStatusHistory> history;
+
+    private Boolean receivedAuthorizationEvent;
+    private Boolean receivedApprovedPaymentEvent;
 
     public void fill(List<CoverageAmountResult> coverageResults, List<AssistanceResult> assistances, List<PolicyStatusHistory> history) {
         for (CoverageAmountResult coverage : coverageResults) {

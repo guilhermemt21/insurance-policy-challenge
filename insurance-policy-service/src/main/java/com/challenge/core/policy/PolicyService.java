@@ -117,7 +117,21 @@ public class PolicyService {
     }
 
     public void processApprovedPaymentEvent(UUID policyId) {
-        changePolicyStatusIfAllowedAndPublish(policyId, APPROVED);
+        //    changePolicyStatusIfAllowedAndPublish(policyId, APPROVED);
+        jdbi.useTransaction(handle -> {
+            PolicyDAO policyDAO = handle.attach(PolicyDAO.class);
+            PolicyDTO currentPolicy = findPolicyById(policyDAO, policyId);
+
+            if (currentPolicy.getStatus().isFinalState()){
+                policyStatusValidator.validateStatusTransition(currentPolicy, APPROVED);
+            }
+
+            policyDAO.markApprovedPaymentReceived(policyId.toString());
+
+            if (currentPolicy.getReceivedAuthorizationEvent()){
+                changePolicyStatusIfAllowedAndPublish(policyId, APPROVED);
+            }
+        });
     }
 
     public void processDeniedPaymentEvent(UUID policyId) {
@@ -125,11 +139,30 @@ public class PolicyService {
     }
 
     public void processAuthorizationEvent(UUID policyId) {
-        changePolicyStatusIfAllowedAndPublish(policyId, PENDING);
+        //    changePolicyStatusIfAllowedAndPublish(policyId, PENDING);
+        jdbi.useTransaction(handle -> {
+            PolicyDAO policyDAO = handle.attach(PolicyDAO.class);
+            PolicyDTO currentPolicy = findPolicyById(policyDAO, policyId);
+
+            if (currentPolicy.getStatus().isFinalState()){
+                policyStatusValidator.validateStatusTransition(currentPolicy, PENDING);
+            }
+
+            policyDAO.markAuthorizationReceived(policyId.toString());
+            changePolicyStatusIfAllowedAndPublish(policyId, PENDING);
+
+            if (currentPolicy.getReceivedApprovedPaymentEvent()){
+                changePolicyStatusIfAllowedAndPublish(policyId, APPROVED);
+            }
+        });
     }
+
 
     private void changePolicyStatusIfAllowedAndPublish(UUID policyId, PolicyStatus newStatus) {
         PolicyDTO policy = getPolicyRequestById(policyId);
+        if (newStatus.equals(policy.getStatus())){
+            return;
+        }
 
         policyStatusValidator.validateStatusTransition(policy, newStatus);
 

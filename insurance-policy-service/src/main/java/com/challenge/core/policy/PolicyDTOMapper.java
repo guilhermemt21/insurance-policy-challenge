@@ -29,6 +29,8 @@ public class PolicyDTOMapper implements RowMapper<PolicyDTO> {
                         .map(ts -> ts.toInstant().atOffset(ZoneOffset.UTC)).orElse(null))
                 .totalMonthlyPremiumAmount(rs.getBigDecimal("total_monthly_premium_amount"))
                 .insuredAmount(rs.getBigDecimal("insured_amount"))
+                .receivedAuthorizationEvent(rs.getBoolean("received_authorization_event"))
+                .receivedApprovedPaymentEvent(rs.getBoolean("received_approved_payment_event"))
                 .coverages(new HashMap<>())
                 .assistances(new ArrayList<>())
                 .history(new ArrayList<>())

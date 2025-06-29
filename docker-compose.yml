@@ -20,6 +20,7 @@ services:
     networks:
       - insurance-net
 
+
   insurance-policy-mysql:
     image: mysql:8.0
     container_name: insurance-policy-database
@@ -39,6 +40,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+
 
   insurance-policy-service:
     build:
